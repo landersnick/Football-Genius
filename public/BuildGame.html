@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <link rel="icon" href="../../../../favicon.ico">
+
+  <title>D&D Chatbot</title>
+
+  <!-- Bootstrap core CSS -->
+  <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <!-- Custom styles for this template -->
+  <link href="cover.css" rel="stylesheet">
+</head>
+<style>
+  .col-4 {
+    max-width: fit-content;
+    flex: auto;
+  }
+
+  .welcome-modal-content {
+    color: black;
+
+  }
+
+  .list-group-item-action {
+    /* make the buttons rounded and gray */
+    border-radius: 10px;
+    background-color: #f8f9fa;
+    color: black;
+    border: 1px solid #f8f9fa;
+    margin: 5px;
+    border-color: black;
+  }
+
+  .slider-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+  }
+
+  .slider-labels .label {
+    position: relative;
+    display: block;
+  }
+
+  /* Optional: Custom styling for the slider */
+  input[type="range"].custom-range {
+    width: 100%;
+  }
+
+  .masthead-brand {
+    margin-right: 10px;
+  }
+</style>
+
+<body class="text-center">
+
+  <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+    <header class="masthead mb-auto">
+      <div class="inner">
+        <h3 class="masthead-brand">D&D</h3>
+        <nav class="nav nav-masthead justify-content-center">
+          <a class="nav-link" href="index.html">Home</a>
+          <a class="nav-link active" href="BuildGame.html">Build Game</a>
+          <a class="nav-link" href="Chat.html">Play Game</a>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Welcome / Name Modal-->
+    <div class="modal" tabindex="-1" role="dialog" id="welcomeModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Welcome!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <p>Please choose a Name:</p>
+            <div class="input-group input-group-sm mb-3">
+              <div class="input-group-prepend">
+              </div>
+              <input type="text" id="characterNameInput" class="form-control" aria-label="Small"
+                aria-describedby="inputGroup-sizing-sm" placeholder="Enter character name">
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue1">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--RACE MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="raceModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Race!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                Races
+                <ul class="list-group">
+                  <button class="list-group-item-action raceSelected" data-race="Elf"
+                    data-img-src="assets/images/races/Elf.jpg">Elf</button>
+                  <button class="list-group-item-action raceSelected" data-race="Human"
+                    data-img-src="assets/images/races/human.jpg">Human</button>
+                  <button class="list-group-item-action raceSelected" data-race="Dwarf"
+                    data-img-src="assets/images/races/dwarf.jpg">Dwarf</button>
+                  <button class="list-group-item-action raceSelected" data-race="Halfling"
+                    data-img-src="assets/images/races/Halfling.jpg">Halfling</button>
+                  <button class="list-group-item-action raceSelected" data-race="Dragonborn"
+                    data-img-src="assets/images/races/Dragonborn.jpg">Dragonborn</button>
+                  <button class="list-group-item-action raceSelected" data-race="Gnome"
+                    data-img-src="assets/images/races/gnome.jpg">Gnome</button>
+                  <button class="list-group-item-action raceSelected" data-race="Half-Elf"
+                    data-img-src="assets/images/races/halfelf.jpg">Half-Elf</button>
+                  <button class="list-group-item-action raceSelected" data-race="Half-Orc"
+                    data-img-src="assets/images/races/halforc.jpg">Half-Orc</button>
+                  <button class="list-group-item-action raceSelected" data-race="Tiefling"
+                    data-img-src="assets/images/races/Tiefling.jpg">Tiefling</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for Race Image -->
+                <img id="race-image" height="275" width="175" src="assets/images/questionmark.jpg" alt="Race Image"
+                  class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue2">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!--CLASS MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="classModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Class!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                Class Options
+                <ul class="list-group">
+                  <button class="list-group-item-action classSelected" data-class="Fighter"
+                    data-img-src="assets/images/classesImages/fighter.jpg">Fighter</button>
+                  <button class="list-group-item-action classSelected" data-class="Wizard"
+                    data-img-src="assets/images/classesImages/wizard.jpg">Wizard</button>
+                  <button class="list-group-item-action classSelected" data-class="Cleric"
+                    data-img-src="assets/images/classesImages/clerig.jpg">Cleric</button>
+                  <button class="list-group-item-action classSelected" data-class="Rogue"
+                    data-img-src="assets/images/classesImages/rogue.jpg">Rogue</button>
+                  <button class="list-group-item-action classSelected" data-class="Paladin"
+                    data-img-src="assets/images/classesImages/paladin.jpg">Paladin</button>
+                  <button class="list-group-item-action classSelected" data-class="Ranger"
+                    data-img-src="assets/images/classesImages/ranger.jpg">Ranger</button>
+                  <button class="list-group-item-action classSelected" data-class="Warlock"
+                    data-img-src="assets/images/classesImages/warlock.jpg">Warlock</button>
+                  <button class="list-group-item-action classSelected" data-class="Barbarian"
+                    data-img-src="assets/images/classesImages/barbarian.jpg">Barbarian</button>
+                  <button class="list-group-item-action classSelected" data-class="Sorcerer"
+                    data-img-src="assets/images/classesImages/sorcerer.jpg">Sorcerer</button>
+                  <button class="list-group-item-action classSelected" data-class="Monk"
+                    data-img-src="assets/images/classesImages/monk.jpg">Monk</button>
+                  <button class="list-group-item-action classSelected" data-class="Druid"
+                    data-img-src="assets/images/classesImages/druid.jpg">Druid</button>
+                  <button class="list-group-item-action classSelected" data-class="Bard"
+                    data-img-src="assets/images/classesImages/bard.jpg">Bard</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for class Image -->
+                <img id="class-image" height="275" width="175" src="assets/images/questionmark.jpg" alt="class Image"
+                  class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue3">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CAMPAIGN LENGTH MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="campaignLengthModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Campaign Length!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="container">
+              <label for="campaignLengthSlider">Campaign Length:</label>
+              <input type="range" class="custom-range" id="campaignLengthSlider" min="1" max="4" step="1">
+              <div class="slider-labels text-center">
+                <span class="label">One-shot</span>
+                <span class="label">Short</span>
+                <span class="label">Medium</span>
+                <span class="label">Long</span>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue4">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--SETTING DETAILS MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="settingsDetailModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Setting!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                Settings Options
+                <ul class="list-group">
+                  <button class="list-group-item-action settingsSelected" data-settings="HighFantasy"
+                    data-img-src="assets/images/settingsImages/highfantasy.jpg">HighFantasy</button>
+                  <button class="list-group-item-action settingsSelected" data-settings="DarkFantasy"
+                    data-img-src="assets/images/settingsImages/darkfantasy.jpg">DarkFantasy</button>
+                  <button class="list-group-item-action settingsSelected" data-settings="Urban"
+                    data-img-src="assets/images/settingsImages/urban.jpg">Urban</button>
+                  <button class="list-group-item-action settingsSelected" data-settings="Wilderness"
+                    data-img-src="assets/images/settingsImages/wilderness.jpg">Wilderness</button>
+                  <button class="list-group-item-action settingsSelected" data-settings="Planar"
+                    data-img-src="assets/images/settingsImages/planar.jpg">Planar</button>
+                  <button class="list-group-item-action settingsSelected" data-settings="Steampunk"
+                    data-img-src="assets/images/settingsImages/steampunk.jpg">Steampunk</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for settings Image -->
+                <img id="settings-image" height="300" width="300" src="assets/images/questionmark.jpg"
+                  alt="Settings Image" class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue5">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--TONE MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="toneModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Tone!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                Tone Options
+                <ul class="list-group">
+                  <button class="list-group-item-action toneSelected" data-tone="comedic"
+                    data-img-src="assets/images/toneImages/comedic.jpg">Comedic</button>
+                  <button class="list-group-item-action toneSelected" data-tone="serious"
+                    data-img-src="assets/images/toneImages/serious.jpg">Serious</button>
+                  <button class="list-group-item-action toneSelected" data-tone="dark"
+                    data-img-src="assets/images/toneImages/dark.jpg">Dark</button>
+                  <button class="list-group-item-action toneSelected" data-tone="whimsical"
+                    data-img-src="assets/images/toneImages/whimsical.jpg">Whimsical</button>
+                  <button class="list-group-item-action toneSelected" data-tone="epic"
+                    data-img-src="assets/images/toneImages/epic.jpg">Epic</button>
+                  <button class="list-group-item-action toneSelected" data-tone="grimdark"
+                    data-img-src="assets/images/toneImages/grimdark.jpg">Grimdark</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for tone Image -->
+                <img id="tone-image" height="275" width="175" src="assets/images/questionmark.jpg" alt="tone Image"
+                  class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue6">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--NUMBER OF COMPANIONS MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="npcModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Number of Companions!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                NPC Options
+                <ul class="list-group">
+                  <button class="list-group-item-action npcSelected" data-num="zero"
+                    data-img-src="assets/images/numImages/zero.jpg">0</button>
+                  <button class="list-group-item-action npcSelected" data-num="one"
+                    data-img-src="assets/images/numImages/one.jpg">1</button>
+                  <button class="list-group-item-action npcSelected" data-num="two"
+                    data-img-src="assets/images/numImages/two.jpg">2</button>
+                  <button class="list-group-item-action npcSelected" data-num="three"
+                    data-img-src="assets/images/numImages/three.jpg">3</button>
+                  <button class="list-group-item-action npcSelected" data-num="four"
+                    data-img-src="assets/images/numImages/four.jpg">4</button>
+                  <button class="list-group-item-action npcSelected" data-num="five"
+                    data-img-src="assets/images/numImages/five.jpg">5</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for npc Image -->
+                <img id="npc-image" height="275" width="175" src="assets/images/questionmark.jpg" alt="tone Image"
+                  class="img-fluid">
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue7">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--EXPERIENCE LEVEL MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="experienceModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Choose your Experience Level!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                Experience Options
+                <ul class="list-group">
+                  <button class="list-group-item-action experienceSelected" data-experience="novice">Novice</button>
+                  <button class="list-group-item-action experienceSelected"
+                    data-experience="intermediate">Intermediate</button>
+                  <button class="list-group-item-action experienceSelected" data-experience="expert">Expert</button>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for settings Image -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" id="continue8">Continue</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--CAMPAIGN DESCRIPTION MODAL-->
+    <div class="modal" tabindex="-1" role="dialog" id="confirmationModal">
+      <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content welcome-modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Let's Begin!</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <div class="row justify-content-around">
+              <div class="col-4">
+                These are your selected options:
+                <ul class="list-group">
+                  <div id="confirmationText"></div>
+                </ul>
+              </div>
+              <div class="col-4">
+                <!-- Placeholder for settings Image -->
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-danger ml-2" id="resetButton">Reset</button>
+            <button type="button" class="btn btn-primary" id="continue9">Build Campaign</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <main>
+
+    </main>
+
+    <footer class="mastfoot mt-auto">
+      <div class="inner">
+        <p>Team ECHO</p>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Bootstrap core JavaScript ================================================== -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+  <script>
+    // global variable to store the campaign details
+    var name;
+    var race;
+    var classSelected;
+    var campaignLength;
+    var settingDetails;
+    var tone;
+    var numberOfCompanions;
+    var experienceLevel;
+    var campaignDetails;
+
+
+    // initial modal
+    document.addEventListener('DOMContentLoaded', (event) => {
+      $('#welcomeModal').modal('show');
+    });
+
+    // begin modal chain
+    document.getElementById('continue1').addEventListener('click', function () {
+      name = document.getElementById('characterNameInput').value;
+      $('#welcomeModal').modal('hide');
+      $('#raceModal').modal('show');
+    });
+
+    $(document).ready(function () {
+      $('.raceSelected').click(function () {
+        var imgSrc = $(this).data('img-src');
+        $('#race-image').attr('src', imgSrc);
+        $('#race-image').attr('style', 'height: 275px');
+        $('#race-image').attr('style', 'width: 175px');
+        race = $(this).data('race');
+      });
+
+      $('#continue2').click(function () {
+        if (race) {
+          $('#raceModal').modal('hide');
+          $('#classModal').modal('show');
+        } else {
+          alert("Please select a race before continuing!");
+        }
+      });
+
+      $('.classSelected').click(function () {
+        var imgSrc2 = $(this).data('img-src');
+        $('#class-image').attr('src', imgSrc2);
+        $('#class-image').attr('style', 'height: 275px');
+        $('#class-image').attr('style', 'width: 175px');
+        classSelected = $(this).data('class');
+      });
+
+      $('#continue3').click(function () {
+        if (classSelected) {
+          $('#classModal').modal('hide');
+          $('#campaignLengthModal').modal('show');
+        } else {
+          alert("Please select a class before continuing!");
+        }
+
+      });
+
+      /* Function to save campaign length selection when it's clicked */
+      document.getElementById('campaignLengthSlider').addEventListener('input', function () {
+        var value = this.value;
+        switch (value) {
+          case '1':
+            campaignLength = 'One-shot';
+            break;
+          case '2':
+            campaignLength = 'Short';
+            break;
+          case '3':
+            campaignLength = 'Medium';
+            break;
+          case '4':
+            campaignLength = 'Long';
+            break;
+        }
+
+        $('#continue4').click(function () {
+          if (campaignLength) {
+            $('#campaignLengthModal').modal('hide');
+            $('#settingsDetailModal').modal('show');
+          } else {
+            alert("Please select a campaign Length before continuing!");
+          }
+        });
+
+      });
+
+      $('.settingsSelected').click(function () {
+        var imgSrc3 = $(this).data('img-src');
+        $('#settings-image').attr('src', imgSrc3);
+        $('#settings-image').attr('style', 'height: 300px');
+        $('#settings-image').attr('style', 'width: 300px');
+        $('#settings-image').attr('alt', 'Image of ' + settingDetails);
+        settingDetails = $(this).data('settings'); // Store the race in the variable
+      });
+
+      $('#continue5').click(function () {
+        if (settingDetails) {
+          $('#settingsDetailModal').modal('hide');
+          $('#toneModal').modal('show');
+        } else {
+          alert("Please select a setting before continuing!");
+        }
+      });
+
+      $('.toneSelected').click(function () {
+        var imgSrc4 = $(this).data('img-src');
+        $('#tone-image').attr('src', imgSrc4);
+        $('#tone-image').attr('style', 'height: 275px');
+        $('#tone-image').attr('style', 'width: 175px');
+        $('#tone-image').attr('alt', 'Image of ' + tone);
+        tone = $(this).data('tone');
+      });
+
+      // Event listener for the continue button
+      $('#continue6').click(function () {
+        if (tone) {
+          $('#toneModal').modal('hide');
+          $('#npcModal').modal('show');
+        } else {
+          alert("Please select a tone before continuing!");
+        }
+      });
+
+      $('.npcSelected').click(function () {
+        var imgSrc4 = $(this).data('img-src');
+        $('#npc-image').attr('src', imgSrc4);
+        $('#npc-image').attr('style', 'height: 275px');
+        $('#npc-image').attr('style', 'width: 175px');
+        numberOfCompanions = $(this).data('num');
+        $('#npc-image').attr('alt', 'Image of ' + numberOfCompanions);
+      });
+
+      $('#continue7').click(function () {
+        if (numberOfCompanions) {
+          $('#npcModal').modal('hide');
+          $('#experienceModal').modal('show');
+        } else {
+          alert("Please select a npc count before continuing!");
+        }
+      });
+
+      $('.experienceSelected').click(function () {
+        experienceLevel = $(this).data('experience');
+      });
+
+
+      $('#continue8').click(function () {
+        if (experienceLevel) {
+
+          campaignDetails = {
+            name: name,
+            race: race,
+            classSelected: classSelected,
+            campaignLength: campaignLength,
+            settingDetails: settingDetails,
+            tone: tone,
+            numberOfCompanions: numberOfCompanions,
+            experienceLevel: experienceLevel,
+          }
+
+          $('#experienceModal').modal('hide');
+          updateConfirmationText();
+          $('#confirmationModal').modal('show');
+        } else {
+          alert("Please select an Experience Level before continuing!");
+        }
+      });
+
+      $('#continue9').click(function () {
+        $('#confirmationModal').modal('hide');
+        window.localStorage.setItem('campaignDetails', JSON.stringify(campaignDetails));
+        window.location.href = 'Chat.html';
+      });
+
+      document.getElementById('resetButton').addEventListener('click', function () {
+        window.location.reload();
+      });
+    });
+
+    function updateConfirmationText() {
+      var confirmationText = document.getElementById('confirmationText');
+      // Make sure to check if the variables have been defined, otherwise set a default value.
+      confirmationText.innerHTML = `
+        <strong>Name:</strong> ${name || "Not selected"}<br>
+        <strong>Race:</strong> ${race || "Not selected"}<br>
+        <strong>Class:</strong> ${classSelected || "Not selected"}<br>
+        <strong>Campaign Length:</strong> ${campaignLength || "Not selected"}<br>
+        <strong>Setting Details:</strong> ${settingDetails || "Not selected"}<br>
+        <strong>Tone:</strong> ${tone || "Not selected"}<br>
+        <strong>Number of Companions:</strong> ${numberOfCompanions || "Not selected"}<br>
+        <strong>Experience Level:</strong> ${experienceLevel || "Not selected"}<br>
+      `;
+    }
+
+  </script>
+</body>
+
+</html>
