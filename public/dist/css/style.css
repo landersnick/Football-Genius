@@ -1,0 +1,79 @@
+body {
+  background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+  font-family: 'Arial', sans-serif;
+}
+.tile-border {
+  border: 2px solid transparent;
+  background-clip: padding-box;
+  box-shadow: 0 0 10px rgba(0, 150, 255, 0.5);
+}
+.tile-border-large {
+  border: 4px solid #ffaa00;
+  background-clip: padding-box;
+}
+/* Study Guide Styling (shared for both Defensive and Offensive) */
+.study-container {
+  max-width: 800px;
+  margin: 0 auto;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 15px;
+  padding: 20px;
+  box-shadow: 0 0 20px rgba(255, 215, 0, 0.5); /* Gold glow */
+}
+.section {
+  margin-bottom: 15px;
+  background: #ffca28; /* Gold background */
+  border-radius: 10px;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.section-title {
+  padding: 10px;
+  cursor: pointer;
+  font-size: 1.5rem;
+  font-weight: bold;
+  background: #d32f2f; /* Red for excitement */
+  color: #fff;
+}
+.section-content {
+  padding: 10px;
+  display: none;
+  background: #fff;
+  color: #333;
+  font-family: 'Comic Sans MS', cursive, sans-serif; /* Playful font */
+}
+.section.active .section-content {
+  display: block;
+}
+.section-title:hover {
+  background: #b71c1c; /* Darker red on hover */
+}
+.fun-img {
+  max-width: 100%;
+  border-radius: 10px;
+  margin: 10px 0;
+}
+.quiz-btn, .back-btn {
+  background: #ff9800; /* Orange button */
+  padding: 10px 20px;
+  border: none;
+  border-radius: 10px;
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.quiz-btn:hover, .back-btn:hover {
+  transform: scale(1.1);
+  background: #f57c00; /* Darker orange */
+}
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+.bounce {
+  animation: bounce 2s infinite;
+}
+.hidden {
+  display: none;
+}
